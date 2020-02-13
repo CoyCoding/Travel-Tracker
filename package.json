@@ -1,0 +1,24 @@
+{
+  "name": "travel-tracker",
+  "version": "1.0.0",
+  "description": "travel tracker with express, lint, mongo, and lat/long mapping",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "lint": "eslint src/",
+    "dev": "nodemon src/server.js"
+  },
+  "author": "matt coy",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "nodemon": "^2.0.2"
+  }
+}
