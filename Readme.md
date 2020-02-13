@@ -1,17 +1,18 @@
-Travel Tracker TODO
+### Travel Tracker Express Server
 
-*[] Setup Server
-  *[x]Install Dependencies
-  *[x]Install / Setup Linter
-  *[]Setup Express App
-  *[]Setup Not Found and Error Middlewares
-*[] Model DB
-  *[]Setup Mongoose Model(s)
-  *[]POST /logs
-*[]Create a new log entry
-  *[]GET / logs
-  *[]List all log entries
-  *[]Setup Client
-  *[]Create Form to add a new entry
-  *[]Setup Map SDK on client
-  *[]List all log entries on map
+TODO://
+* [ ] Setup Server
+  * [x] Install Starter Dependencies
+  * [x] Install / Setup Linter
+  * [ ] Setup Express App
+  * [ ] Setup 404 / Error Middlewares
+* [ ] Setup DB
+  * [ ] Setup Mongoose Model(s)
+  * [ ] POST
+* [ ] Create a new log entry
+  * [ ] GET
+  * [ ] List all log entries
+  * [ ] Setup Client
+  * [ ] Create Form to add a new entry
+  * [ ] Setup Map SDK on client
+  * [ ] List all log entries on map
