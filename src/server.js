@@ -2,43 +2,38 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
-const corsConfig = require('./config/cors.js');
+const corsConfig = require('./config/cors');
+const middlewares = require('./middlewares/middlewares');
 
 // Create basic server
 const app = express();
-
-// Middleware
-// Backend - logs: requests
-app.use(morgan('common'));
-// Backend - security: Hides headers
-app.use(helmet());
-// Backend - security: Set acceptable incoming req domains
-app.use(cors(corsConfig));
-
-// Set host port to env file or 6161 in DEV
 const port = process.env.PORT || 6161;
+
+// Pre-Route Middleware
+//  - logs: requests
+app.use(morgan('common'));
+
+//  - security: Hides headers
+app.use(helmet());
+
+//  - security: Set acceptable incoming req domains
+app.use(cors(corsConfig));
 
 // GET: ROUTES
 app.get('/', (req, res) => {
   res.json({ message: 'working' });
 });
 
-app.use((req, res, next) => {
-  const error = new Error(`Not the route you are looking for - ${req.originalUrl}`);
-  res.status(404);
-  next(error);
-});
+// Post-Route Middleware
+// Returns detailed 404 errors
+app.use(middlewares.notFound);
 
-app.use((error, req, res, next)=>{
-  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
-    message: error.message,
-    stack: error.stack,
-  });
-});
+// Handles all server based errors
+app.use(middlewares.errorHandler);
 
-// listen on port
+//
+//  Start App on ${port}
+//
 app.listen(port, () => {
   console.log(`App listening on localhost:${port}`);
 });
