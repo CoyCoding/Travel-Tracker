@@ -24,8 +24,16 @@ const locationSchema = new Schema({
   },
   startDate: { type: Date },
   endDate: { type: Date },
-  latitude: requiredNumber,
-  longitude: requiredNumber,
+  latitude: {
+    ...requiredNumber,
+    min: -90,
+    max: 90,
+  },
+  longitude: {
+    ...requiredNumber,
+    min: -180,
+    max: 180,
+  },
   meta: {
     votes: Number,
     favs: Number,
