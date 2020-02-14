@@ -1,17 +1,20 @@
+// Load Environment vars
+require('dotenv').config();
+
+// Load required packages
 const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const location = require('./api/locations');
 const corsConfig = require('./config/cors');
 const middlewares = require('./middlewares/middlewares');
 
-dotenv.config();
 
-mongoose.connect(process.env.DATABASE_URL, {
-  useNewUrlParser: true,
-});
+// mongoose.connect(process.env.DATABASE_URL, {
+//   useNewUrlParser: true,
+// });
 
 // Create basic server
 const app = express();
@@ -27,10 +30,13 @@ app.use(helmet());
 //  - security: Set acceptable incoming req domains
 app.use(cors(corsConfig));
 
-// GET: ROUTES
+// ROUTES
 app.get('/', (req, res) => {
   res.json({ message: 'working' });
 });
+
+// API - Locations
+app.use('/api/locations', location);
 
 // Post-Route Middleware
 // Returns detailed 404 errors
