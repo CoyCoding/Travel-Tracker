@@ -4,8 +4,8 @@ TODO://
 * [ ] Setup Server
   * [x] Install Starter Dependencies
   * [x] Install / Setup Linter
-  * [ ] Setup Express App
-  * [ ] Setup 404 / Error Middlewares
+  * [x] Setup Express App
+  * [x] Setup 404 / Error Middlewares
 * [ ] Setup DB
   * [ ] Setup Mongoose Model(s)
   * [ ] POST
@@ -16,3 +16,24 @@ TODO://
   * [ ] Create Form to add a new entry
   * [ ] Setup Map SDK on client
   * [ ] List all log entries on map
+
+### Mongo DB
+
+##Travel Locations
+
+- Id @int
+- Title @string
+- Description @string
+- Fun Factor @int (1-5)
+- Arrival at Destination Date @Date
+- Leaving Destination Date @Date
+- Latitude @float
+- Longitude @float
+- Created At @Date
+- Updated At @Date
+
+## Images
+
+- Id @int
+- locationId @int [one Location - Many images]
+- Url @string
