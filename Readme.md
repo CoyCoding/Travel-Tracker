@@ -1,21 +1,20 @@
 ### Travel Tracker Express Server
 
 TODO://
-* [ ] Setup Server
+* [x] Basic Setup Server
   * [x] Install Starter Dependencies
   * [x] Install / Setup Linter
   * [x] Setup Express App
   * [x] Setup 404 / Error Middlewares
-* [] Setup DB
-  * [x] Setup Mongoose Model(s)
-  * [ ] POST
-* [ ] Create a new location entry
-  * [ ] GET
-  * [ ] List all log entries
-* [ ] Research Image uploading and cropping
+* [ ] Setup DB Locations
+  * [x] Setup Mongoose Model
+  * [ ] POST / GET Locations
+  * [ ] Test routes
+* [ ] Setup DB Images
+  * [x] Setup Mongoose Model
+  * [ ] Research Image uploading and cropping
   * [ ] Resize original image for thumbnail
-  * [ ] Save Original and Crop to database
-  * [ ]
+  * [ ] Save Original and thumbnail to database
 * [ ] Setup Client
   * [ ] Create Form to add a new entry
   * [ ] Setup Map SDK on client

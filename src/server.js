@@ -2,8 +2,16 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const corsConfig = require('./config/cors');
 const middlewares = require('./middlewares/middlewares');
+
+dotenv.config();
+
+mongoose.connect(process.env.DATABASE_URL, {
+  useNewUrlParser: true,
+});
 
 // Create basic server
 const app = express();

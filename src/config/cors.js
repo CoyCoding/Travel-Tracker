@@ -1,4 +1,4 @@
-const whitelist = ['localhost:3333', 'null'];
+const whitelist = [process.env.CORS_ORIGIN_CLIENT];
 
 const corsConfig = {
   orign(origin, callback) {
