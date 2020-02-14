@@ -1,4 +1,4 @@
-### Travel Tracker Express Server
+# Travel Tracker Express Server
 
 TODO://
 * [ ] Setup Server
@@ -17,9 +17,9 @@ TODO://
   * [ ] Setup Map SDK on client
   * [ ] List all log entries on map
 
-### Mongo DB
+# Mongo DB
 
-##Travel Locations
+## Travel Locations
 
 - Id @int
 - Title @string
