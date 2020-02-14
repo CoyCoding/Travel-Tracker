@@ -6,13 +6,17 @@ TODO://
   * [x] Install / Setup Linter
   * [x] Setup Express App
   * [x] Setup 404 / Error Middlewares
-* [ ] Setup DB
-  * [ ] Setup Mongoose Model(s)
+* [] Setup DB
+  * [x] Setup Mongoose Model(s)
   * [ ] POST
-* [ ] Create a new log entry
+* [ ] Create a new location entry
   * [ ] GET
   * [ ] List all log entries
-  * [ ] Setup Client
+* [ ] Research Image uploading and cropping
+  * [ ] Resize original image for thumbnail
+  * [ ] Save Original and Crop to database
+  * [ ]
+* [ ] Setup Client
   * [ ] Create Form to add a new entry
   * [ ] Setup Map SDK on client
   * [ ] List all log entries on map

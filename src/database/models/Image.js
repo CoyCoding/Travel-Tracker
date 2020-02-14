@@ -9,7 +9,7 @@ const imageSchema = new Schema({
     type: String,
     required: true,
   },
-  thubnailSrc: {
+  thumbnailSrc: {
     type: String,
   },
 }, {
