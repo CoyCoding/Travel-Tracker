@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const image = require('./Image');
 
+const Image = require('./Image').schema;
+
+// Reusable types
 const requiredString = {
   type: String,
   required: true,
 };
-
 const requiredNumber = {
   type: Number,
   required: true,
@@ -15,7 +16,9 @@ const requiredNumber = {
 
 const locationSchema = new Schema({
   title: requiredString,
-  images: [image],
+  images: {
+    type: [Image],
+  },
   description: String,
   rating: {
     type: Number,
