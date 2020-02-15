@@ -20,11 +20,13 @@ const locationSchema = new Schema({
     type: [Image],
   },
   description: String,
-  rating: {
-    type: Number,
-    min: 0,
-    max: 5,
-  },
+  ratings: [{
+    rating: {
+      type: Number,
+      min: 0,
+      max: 5,
+    },
+  }],
   startDate: { type: Date },
   endDate: { type: Date },
   latitude: {
@@ -36,10 +38,6 @@ const locationSchema = new Schema({
     ...requiredNumber,
     min: -180,
     max: 180,
-  },
-  meta: {
-    votes: Number,
-    favs: Number,
   },
 }, {
   timestamps: true,
