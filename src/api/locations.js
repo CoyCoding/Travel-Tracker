@@ -4,7 +4,14 @@ const router = Router();
 
 router.get('/', (req, res) => {
   res.json({
-    message: 'location api 😂',
+    message: 'GET:// location api 😂',
+  });
+});
+
+router.post('/', (req, res) => {
+  console.log(req.body);
+  res.json({
+    ...req.body,
   });
 });
 

@@ -6,21 +6,23 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
-const mongoose = require('mongoose');
+const Database = require('./config/database');
 const location = require('./api/locations');
 const corsConfig = require('./config/cors');
 const middlewares = require('./middlewares/middlewares');
 
-
-// mongoose.connect(process.env.DATABASE_URL, {
-//   useNewUrlParser: true,
-// });
+// Create database and connect
+const database = new Database();
+database.connect();
 
 // Create basic server
 const app = express();
 const port = process.env.PORT || 6161;
 
 // Pre-Route Middleware
+//  - Api: parse incoming requests
+app.use(express.json());
+
 //  - logs: requests
 app.use(morgan('common'));
 
