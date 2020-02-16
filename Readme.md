@@ -8,8 +8,8 @@ TODO://
   * [x] Setup 404 / Error Middlewares
 * [ ] Setup DB Locations
   * [x] Setup Mongoose Model
-  * [ ] POST / GET Locations
-  * [ ] Test routes
+  * [x] POST / GET Locations
+  * [x] Test routes
 * [ ] Setup DB Images
   * [x] Setup Mongoose Model
   * [ ] Research Image uploading and cropping
@@ -22,11 +22,19 @@ TODO://
 
 ### Mongo DB
 
-##Travel Locations
+## User
+- UserName @String
+- Locations @[Location]
+- Friends @[User]
+- PendingFriends @[User]
+- FriendRequest @[User]
+
+## Travel Location
 
 - Id @int
 - Title @string
 - Description @string
+- Images @[ImageIds]
 - Fun Factor @int (1-5)
 - Arrival at Destination Date @Date
 - Leaving Destination Date @Date
@@ -35,8 +43,7 @@ TODO://
 - Created At @Date
 - Updated At @Date
 
-## Images
+## Image
 
 - Id @int
-- locationId @int [one Location - Many images]
 - Url @string
