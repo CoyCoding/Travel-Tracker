@@ -3,7 +3,6 @@ require('dotenv').config();
 
 // Load required packages
 const express = require('express');
-const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 const Database = require('./config/database');
@@ -23,10 +22,7 @@ const port = process.env.PORT || 6161;
 // Pre-Route Middleware
 //  - Api: parse incoming requests
 app.use(express.json());
-
-//  - logs: requests
-app.use(morgan('common'));
-
+app.use(express.urlencoded({ extended: true }));
 //  - security: Hides headers
 app.use(helmet());
 
@@ -41,6 +37,10 @@ app.get('/', (req, res) => {
 // API - Auth
 app.use('/auth', auth);
 
+app.get('/testauth', middlewares.auth, (req, res) => {
+  const { user } = req.body;
+  res.json({ token: user });
+})
 // API - Locations
 app.use('/api/locations', location);
 
