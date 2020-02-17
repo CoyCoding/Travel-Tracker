@@ -16,6 +16,8 @@ const errorHandler = (error, req, res, next) => {
   });
 };
 
+// Middleware to handle authChecking
+
 module.exports = {
   notFound,
   errorHandler,

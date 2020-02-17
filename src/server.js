@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const Database = require('./config/database');
 const location = require('./api/locations');
+const auth = require('./api/auth');
 const corsConfig = require('./config/cors');
 const middlewares = require('./middlewares/middlewares');
 
@@ -36,6 +37,9 @@ app.use(cors(corsConfig));
 app.get('/', (req, res) => {
   res.json({ message: 'working' });
 });
+
+// API - Auth
+app.use('/auth', auth);
 
 // API - Locations
 app.use('/api/locations', location);

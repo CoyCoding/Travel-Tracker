@@ -11,7 +11,7 @@ const userSchema = new Schema({
   updated_at: Date,
   email: String,
   email_verified: Boolean,
-  sub: String
+  sub: String,
 });
 
 const User = mongoose.model('User', userSchema);
