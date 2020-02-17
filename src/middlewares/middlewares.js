@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const { generateAccessToken, generateRefreshToken } = require('../auth/auth');
+const { generateAccessToken } = require('../auth/utils/auth');
+const Token = require('../database/models/Token');
 
 // Middleware to handle requests for non-existant routes
 const notFound = (req, res, next) => {
@@ -21,29 +22,23 @@ const errorHandler = (error, req, res, next) => {
 
 
 // Middleware to handle authChecking
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
   // Store the Tokens
   const accessToken = req.headers['access-token'] && req.headers['access-token'].split(' ')[1];
   const refreshToken = req.headers['refresh-token'] && req.headers['refresh-token'].split(' ')[1];
   // If either are null not logged in
   if (!(accessToken && refreshToken)) {
     res.status(401);
-    return next(new Error('Not logged In'));
+    next(new Error('Not logged In'));
   }
-  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
-    console.log(error)
+  try {
+    const decodedAccessToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET)
+  } catch (error) {
     if (error.name === 'TokenExpiredError') {
-      const fakeDbCheck = true;
-      if (fakeDbCheck) {
-        console.log('database has a matching refresh')
-        res.set('newHeader', 'test');
-        console.log('payload?')
-        return next();
-      }
+
     }
-    next(new Error(error.name));
-  });
-};
+  }
+}
 
 module.exports = {
   notFound,

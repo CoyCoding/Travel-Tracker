@@ -7,7 +7,7 @@ const { auth } = require('../middlewares/middlewares');
 // GET - All locations
 router.get('/', auth, async (req, res) => {
   const locations = await Location.find();
-  console.log(req.headers)
+  console.log(req.userData);
   res.json(locations);
 });
 
