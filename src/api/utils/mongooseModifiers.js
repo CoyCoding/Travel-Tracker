@@ -1,5 +1,5 @@
-const push = (image) => ({ $push: image });
+const push = (obj) => ({ $push: obj });
 
-const returnCopy = () => ({ upsert: true, new: true });
+const returnCopy = () => ({ upsert: false, new: false });
 
 module.exports = { push, returnCopy };

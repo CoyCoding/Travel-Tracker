@@ -37,6 +37,11 @@ const locationSchema = new Schema({
     min: -180,
     max: 180,
   },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
 }, {
   timestamps: true,
 });

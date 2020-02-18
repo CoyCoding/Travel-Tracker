@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const Database = require('./config/database');
 const location = require('./api/locations');
+const follow = require('./api/following');
 const auth = require('./auth/auth');
 const corsConfig = require('./config/cors');
 const middlewares = require('./middlewares/middlewares');
@@ -22,7 +23,7 @@ const port = process.env.PORT || 6161;
 // Pre-Route Middleware
 //  - Api: parse incoming requests
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 //  - security: Hides headers
 app.use(helmet());
 
@@ -39,6 +40,9 @@ app.use('/auth', auth);
 
 // API - Locations
 app.use('/api/locations', location);
+
+// API - friend listen\
+app.use('/api/follow', follow);
 
 // Post-Route Middleware
 // Returns detailed 404 errors
