@@ -1,10 +1,9 @@
 const router = require('express').Router();
 const validator = require('express-joi-validation').createValidator({});
-const jwt = require('jsonwebtoken');
 const signUp = require('./utils/validation');
 const { generateAccessToken, generateRefreshToken, checkForExistingUsers } = require('./utils/auth');
 const User = require('../database/models/User');
-const UserAuth = require('../database/models/UserAuth');
+const { UserAuth, validateUser } = require('../database/models/UserAuth');
 
 
 router.post('/sign-up', validator.body(signUp), async (req, res, next) => {
@@ -43,23 +42,31 @@ router.post('/sign-up', validator.body(signUp), async (req, res, next) => {
 });
 
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(email, password);
-  // Find user with email and password
-  const user = await UserAuth.findOne({
-    $and: [{ email }, { password }]
-  });
-  const accessToken = generateAccessToken({ username: user.username, id: user.user_id });
-  res.set('access-token', accessToken);
-  const userData = await User.findOne({
-    username: user.username
-  });
-  res.json({ userData });
+  // Find AuthUser with email and password
+  try {
+    const user = await UserAuth.findOne({
+      $and: [{ email }, { password }],
+    });
+    // Generate Token place in header
+    const accessToken = generateAccessToken({ username: user.username, id: user.user_id });
+    res.set('access-token', accessToken);
+    // find logged in user data
+    const userData = await User.findOne({
+      username: user.username,
+    });
+    // return that users data
+    return res.json(userData);
+  } catch (e) {
+    res.status(400);
+    return next(new Error('invaild email or password'));
+  }
 });
 
 router.get('/logout', (req, res) => {
   // handle with passport
+  // JWT donesn't need a log out at this time
   res.json({ test: 'logout' });
 });
 

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 // Needs username and User.id --NOT AUTH USER ID--
-const generateAccessToken = (user) => jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
+const generateAccessToken = (user) => jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7d' });
 
 // Needs username
 const generateRefreshToken = (user) => jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '5d' });
