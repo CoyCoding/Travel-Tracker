@@ -8,9 +8,12 @@ const userSchema = new Schema({
   locations: [String],
   email: String,
   email_verified: Boolean,
-  friends: [String],
-  out_going_fr: [String],
-  incoming_fr: [String],
+  following: [{
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  }],
 }, {
   timestamp: true,
 });
