@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const validator = require('express-joi-validation').createValidator({});
+const jwt = require('jsonwebtoken');
 const signUp = require('./utils/validation');
 const { generateAccessToken, generateRefreshToken, checkForExistingUsers } = require('./utils/auth');
-const Token = require('../database/models/Token');
 const User = require('../database/models/User');
 const UserAuth = require('../database/models/UserAuth');
 
@@ -27,7 +27,7 @@ router.post('/sign-up', validator.body(signUp), async (req, res, next) => {
     });
     return userAuth.save().then((data) => {
       console.log(data);
-      const accessToken = generateAccessToken({ username: data.username, user_id: data.user_id });
+      const accessToken = generateAccessToken({ username: data.username, id: data.user_id });
       console.log(accessToken);
       res.set('access-token', accessToken);
       return res.json({ data, accessToken });
@@ -46,27 +46,16 @@ router.post('/sign-up', validator.body(signUp), async (req, res, next) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   console.log(email, password);
+  // Find user with email and password
   const user = await UserAuth.findOne({
     $and: [{ email }, { password }]
   });
-  console.log(user);
-  res.json(user);
-  // const accessToken = generateAccessToken(data);
-  // const refreshToken = generateRefreshToken(data);
-  // // ** ********************************************* **
-  // // *                                                 *
-  // // *  NEED DATABASE FOR USERS WITH REFRESH TOKENS!!! *
-  // // *                                                 *
-  // // ** ********************************************* **
-  // const token = new Token({ token: refreshToken });
-  // console.log(token);
-  // token.save().then(() => {
-  //   res.set('access-token', accessToken);
-  //   res.set('refresh-token', refreshToken);
-  //   res.json({ user, accessToken, refreshToken });
-  // }).catch(() => {
-  //   res.json({ error: 'this shouldn\'t fail' });
-  // });
+  const accessToken = generateAccessToken({ username: user.username, id: user.user_id });
+  res.set('access-token', accessToken);
+  const userData = await User.findOne({
+    username: user.username
+  });
+  res.json({ userData });
 });
 
 router.get('/logout', (req, res) => {
