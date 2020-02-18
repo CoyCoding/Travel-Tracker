@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 // Middleware to handle requests for non-existant routes
 const notFound = (req, res, next) => {
   const error = new Error("This isn't a route dummy");
@@ -12,11 +14,27 @@ const errorHandler = (error, req, res, next) => {
   res.status(statusCode);
   res.json({
     message: error.message,
-    stack: process.env.NODE_ENV === 'production' ? '🍕' : error.stack,
+    stack: process.env.ENVIRONMENT,
+  });
+};
+
+
+// Middleware to handle authChecking
+const auth = async (req, res, next) => {
+  // Store the Tokens
+  const accessToken = req.headers['access-token'] && req.headers['access-token'].split(' ')[1];
+  // If either are null not logged in
+  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (error) => {
+    if (error) {
+      res.status(401);
+      next(new Error('Not logged In'));
+    }
+    next();
   });
 };
 
 module.exports = {
   notFound,
   errorHandler,
+  auth,
 };

@@ -1,15 +1,4 @@
-const whitelist = ['localhost:3333', 'null'];
-
-const corsConfig = {
-  orign(origin, callback) {
-    console.log(origin);
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+module.exports = {
+  // Whitelisted domains for accessing the api
+  origin: [process.env.CORS_ORIGIN_CLIENT, 'localhost:3333'],
 };
-
-
-module.exports = corsConfig;

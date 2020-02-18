@@ -1,29 +1,40 @@
 # Travel Tracker Express Server
 
 TODO://
-* [ ] Setup Server
+* [x] Basic Setup Server
   * [x] Install Starter Dependencies
   * [x] Install / Setup Linter
   * [x] Setup Express App
   * [x] Setup 404 / Error Middlewares
-* [ ] Setup DB
-  * [ ] Setup Mongoose Model(s)
-  * [ ] POST
-* [ ] Create a new log entry
-  * [ ] GET
-  * [ ] List all log entries
-  * [ ] Setup Client
+* [ ] Setup DB Locations
+  * [x] Setup Mongoose Model
+  * [x] POST / GET Locations
+  * [x] Test routes
+* [ ] Setup DB Images
+  * [x] Setup Mongoose Model
+  * [ ] Research Image uploading and cropping
+  * [ ] Resize original image for thumbnail
+  * [ ] Save Original and thumbnail to database
+* [ ] Setup Client
   * [ ] Create Form to add a new entry
   * [ ] Setup Map SDK on client
   * [ ] List all log entries on map
 
 # Mongo DB
 
-## Travel Locations
+## User
+- UserName @String
+- Locations @[Location]
+- Friends @[User]
+- PendingFriends @[User]
+- FriendRequest @[User]
+
+## Travel Location
 
 - Id @int
 - Title @string
 - Description @string
+- Images @[ImageIds]
 - Fun Factor @int (1-5)
 - Arrival at Destination Date @Date
 - Leaving Destination Date @Date
@@ -32,8 +43,7 @@ TODO://
 - Created At @Date
 - Updated At @Date
 
-## Images
+## Image
 
 - Id @int
-- locationId @int [one Location - Many images]
 - Url @string
