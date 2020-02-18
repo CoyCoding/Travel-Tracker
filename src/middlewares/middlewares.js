@@ -1,6 +1,4 @@
 const jwt = require('jsonwebtoken');
-const { generateAccessToken } = require('../auth/utils/auth');
-const Token = require('../database/models/Token');
 
 // Middleware to handle requests for non-existant routes
 const notFound = (req, res, next) => {
@@ -33,7 +31,7 @@ const auth = async (req, res, next) => {
     }
     next();
   });
-}
+};
 
 module.exports = {
   notFound,

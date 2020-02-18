@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const validator = require('express-joi-validation').createValidator({});
-const signUp = require('./utils/validation');
 const { generateAccessToken, generateRefreshToken, checkForExistingUsers } = require('./utils/auth');
 const User = require('../database/models/User');
 const { UserAuth, validateUserAuth } = require('../database/models/UserAuth');
