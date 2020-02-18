@@ -28,10 +28,25 @@ router.post('/add', auth, async (req, res, next) => {
   // Upated following list
   User.findByIdAndUpdate(req.body.user_id, push({ following: userToFollow }),
     { new: true, upsert: true })
-    .then((user) => res.json(user))
-    .catch((err) => next(err));
+    .then((user) => {
+      return res.json(user);
+    })
+    .catch((err) => {
+      return next(err);
+    });
+});
 
-  return res.json({});
+router.post('/remove', auth, async (req, res, next) => {
+  const userId = req.body.user_id;
+  const userToUnfollowId = req.body.userToUnfollow;
+  User.findByIdAndUpdate(userId, { $pull: { following: { _id: userToUnfollowId } } },
+    { new: true, upsert: true })
+    .then((user) => {
+      console.log(user)
+      return res.json(user);
+    }).catch((err) => {
+      return next(err);
+    });
 });
 
 module.exports = router;
