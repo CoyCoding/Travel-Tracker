@@ -7,14 +7,17 @@ const requiredString = {
   required: true,
 };
 
-const userSchema = new Schema({
+const userAuthSchema = new Schema({
   username: requiredString,
   email: requiredString,
   password: requiredString,
+  user_id: requiredString,
+  refresh_token: String,
+  voided_tokens: [String],
 }, {
   timestamp: true,
 });
 
-const User = mongoose.model('User', userSchema);
+const UserAuth = mongoose.model('UserAuth', userAuthSchema);
 
-module.exports = User;
+module.exports = UserAuth;

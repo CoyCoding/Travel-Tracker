@@ -37,10 +37,6 @@ app.get('/', (req, res) => {
 // API - Auth
 app.use('/auth', auth);
 
-app.get('/testauth', middlewares.auth, (req, res) => {
-  const { user } = req.body;
-  res.json({ token: user });
-});
 // API - Locations
 app.use('/api/locations', location);
 

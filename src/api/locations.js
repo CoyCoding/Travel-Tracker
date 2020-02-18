@@ -32,9 +32,9 @@ router.put('/add-image', async (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const location = new Location(req.body);
-  location.save().then((entry) => {
+  await location.save().then((entry) => {
     res.json(entry);
   }).catch((error) => {
     if (error.name === 'ValidationError') {

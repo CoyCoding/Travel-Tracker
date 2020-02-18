@@ -5,10 +5,12 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   username: String,
   picture: String,
-  locale: String,
+  locations: [String],
   email: String,
   email_verified: Boolean,
-  sub: String,
+  friends: [String],
+  out_going_fr: [String],
+  incoming_fr: [String],
 }, {
   timestamp: true,
 });
