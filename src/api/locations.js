@@ -7,22 +7,29 @@ const { auth } = require('../middlewares/middlewares');
 
 // GET - All locations
 router.get('/', auth, async (req, res) => {
-  const user = await User.findOne();
-  // console.log(user)
-  // const locations = await Location.find({ user_id: [req.body.user_id, ...user.following] });
-  // console.log(req.userData);
+  const userId = req.body.user_id;
+  // Get logged in user Info
+  const user = await User.findOne({ _id: userId }).populate('following');
+  // Get all locations for user and users friends
+  // const locations = await Location.find({ user_id: { $in: [userId, ...user.following] } });
+  // // Get all friends of user
+  // const following = await User.find({ _id: { $in: [...user.following] } });
+  // Add locations and users you are following to User object
+  console.log(user, 'user')
+  console.log(user.locations, 'locations')
+  console.log(user.following, 'following')
   res.json(user);
 });
 
 // GET - Location by id
-router.get('/location-id', async (req, res) => {
+router.get('/byId', auth, async (req, res) => {
   const locationId = req.body.id;
   // GET Location by id
   const locations = await Location.findById(locationId);
   res.json(locations);
 });
 
-router.put('/add-image', async (req, res, next) => {
+router.put('/add-image', auth, async (req, res, next) => {
   const locationId = req.body.id;
   // BUILD image for upload
   const image = new Image({ originalSrc: 'www.newImage.com' });

@@ -6,27 +6,21 @@ const userSchema = new Schema({
   username: String,
   picture: String,
   locations: [{
-    location: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Location',
   }],
   email: String,
   email_verified: Boolean,
   followers: [{
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   }],
   following: [{
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   }],
 }, {
-  timestamp: true,
+  timestamps: true,
 });
 
 const User = mongoose.model('User', userSchema);

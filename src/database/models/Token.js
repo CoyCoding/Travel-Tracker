@@ -8,6 +8,8 @@ const tokenSchema = new Schema({
     type: Boolean,
     default: false,
   },
+}, {
+  timestamps: true,
 });
 
 const Token = mongoose.model('Token', tokenSchema);
