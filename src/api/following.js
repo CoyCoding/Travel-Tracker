@@ -1,25 +1,27 @@
 const router = require('express').Router();
+const mongoose = require('mongoose');
 const Location = require('../database/models/Location');
 const Image = require('../database/models/Image');
 const User = require('../database/models/User');
 const { findUser, isFollowing } = require('./utils/followQueries');
 const { push, returnCopy } = require('./utils/mongooseModifiers');
 const { auth } = require('../middlewares/middlewares');
+// GET - All
 
-// GET - All locations
+
 router.post('/add', auth, async (req, res, next) => {
   const userToFollowId = req.body.userToFollow;
   const userId = req.body.user_id;
   try {
+    // Check that user to Follow exists
     const userToFollow = await findUser(userToFollowId);
-    if (await isFollowing(userId, userToFollowId)) {
-      throw new Error('Already following');
-    }
-    // Upated following list
-    User.findByIdAndUpdate(req.body.user_id, push({ following: userToFollow }),
-      { new: true, upsert: true })
-      .then((user) => res.json(user))
-      .catch((err) => next(err));
+    // Find currently logged on user and update
+    User.findByIdAndUpdate(userId, { $addToSet: { following: userToFollow } }, returnCopy)
+      .then((user) => {
+        User.findByIdAndUpdate(userToFollowId, { $addToSet: { followers: user } })
+          .then(() => res.json(user))
+          .catch((err) => next(err));
+      }).catch((err) => next(err));
   } catch (e) {
     res.status(400);
     next(e);
