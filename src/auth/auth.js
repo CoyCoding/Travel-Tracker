@@ -13,7 +13,7 @@ router.post('/sign-up', validator.body(validateUserAuth), async (req, res, next)
   // Return error depending on what exists.
   const exists = checkForExistingUsers(existingUsers, username);
   if (exists) {
-    res.status(400);
+    res.status(401);
     return next(exists);
   }
   // Create new user

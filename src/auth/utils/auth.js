@@ -10,11 +10,11 @@ const checkForExistingUsers = (users, username) => {
   if (users.length) {
     const error = new Error();
     if (users.length === 2) {
-      error.message = 'username and email used';
+      error.message = 'Sorry, that username and email are unavailable';
     } else if (users[0].username === username) {
-      error.message = 'username taken';
+      error.message = 'Sorry, that username is unavailable';
     } else {
-      error.message = 'email is already in use';
+      error.message = 'Sorry, that email is unavailable';
     }
     return error;
   }
