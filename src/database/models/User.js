@@ -5,17 +5,22 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   username: String,
   picture: String,
-  locations: [String],
+  locations: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Location',
+  }],
   email: String,
   email_verified: Boolean,
+  followers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  }],
   following: [{
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   }],
 }, {
-  timestamp: true,
+  timestamps: true,
 });
 
 const User = mongoose.model('User', userSchema);

@@ -11,25 +11,23 @@ const notFound = (req, res, next) => {
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (error, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
-  res.status(statusCode);
-  res.json({
-    message: error.message,
-    stack: process.env.ENVIRONMENT,
-  });
+  res.status(statusCode).json({ error, message: error.message });
 };
 
 
 // Middleware to handle authChecking
 const auth = async (req, res, next) => {
   // Store the Tokens
+  console.log('auth');
   const accessToken = req.headers['access-token'] && req.headers['access-token'].split(' ')[1];
   // If either are null not logged in
-  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (error) => {
+  jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
     if (error) {
       res.status(401);
-      next(new Error('Not logged In'));
+      return next(new Error('Not logged In'));
     }
-    next();
+    req.body.user_id = user.id;
+    return next();
   });
 };
 

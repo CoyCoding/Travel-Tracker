@@ -31,6 +31,8 @@ const userAuthSchema = new Schema({
   },
   refresh_token: String,
   voided_tokens: [String],
+}, {
+  timestamps: true,
 });
 
 const UserAuth = mongoose.model('UserAuth', userAuthSchema);
