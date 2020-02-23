@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 
 //  - security: Set acceptable incoming req domains
-app.use(cors());
+app.use(cors(corsConfig));
 
 // ROUTES
 app.get('/', (req, res) => {

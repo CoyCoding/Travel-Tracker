@@ -6,10 +6,12 @@ const generateAccessToken = (user) => jwt.sign(user, process.env.ACCESS_TOKEN_SE
 // Needs username
 const generateRefreshToken = (user) => jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '5d' });
 
-const checkForExistingUsers = (users, username) => {
+const checkForExistingUsers = (users, username, email) => {
   if (users.length) {
     const error = new Error();
     if (users.length === 2) {
+      error.message = 'Sorry, that username and email are unavailable';
+    } else if (users[0].username === username && users[0].email === email) {
       error.message = 'Sorry, that username and email are unavailable';
     } else if (users[0].username === username) {
       error.message = 'Sorry, that username is unavailable';

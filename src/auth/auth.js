@@ -11,7 +11,7 @@ router.post('/sign-up', validator.body(validateUserAuth), async (req, res, next)
   // check for database for existing username or email.
   const existingUsers = await UserAuth.find({ $or: [{ username }, { email }] });
   // Return error depending on what exists.
-  const exists = checkForExistingUsers(existingUsers, username);
+  const exists = checkForExistingUsers(existingUsers, username, email);
   if (exists) {
     res.status(401);
     return next(exists);
