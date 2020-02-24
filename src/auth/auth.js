@@ -11,10 +11,10 @@ router.post('/sign-up', validator.body(validateUserAuth), async (req, res, next)
   // check for database for existing username or email.
   const existingUsers = await UserAuth.find({ $or: [{ username }, { email }] });
   // Return error depending on what exists.
-  const exists = checkForExistingUsers(existingUsers, username, email);
-  if (exists) {
+  const error = checkForExistingUsers(existingUsers, username, email);
+  if (error) {
     res.status(401);
-    return next(exists);
+    return next(new Error(error));
   }
   // Create new user
   const user = new User({ username, email });
@@ -33,7 +33,7 @@ router.post('/sign-up', validator.body(validateUserAuth), async (req, res, next)
       res.set('access-token', `bearer ${accessToken}`);
       return res.json(user);
     }).catch((err) => next(err));
-  }).catch((error) => res.json(error));
+  }).catch((err) => res.json(err));
 });
 
 router.post('/login', async (req, res, next) => {

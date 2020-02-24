@@ -8,17 +8,17 @@ const generateRefreshToken = (user) => jwt.sign(user, process.env.REFRESH_TOKEN_
 
 const checkForExistingUsers = (users, username, email) => {
   if (users.length) {
-    const error = new Error();
+    let message;
     if (users.length === 2) {
-      error.message = 'Sorry, that username and email are unavailable';
+      message = 'Sorry, that username and email are unavailable';
     } else if (users[0].username === username && users[0].email === email) {
-      error.message = 'Sorry, that username and email are unavailable';
+      message = 'Sorry, that username and email are unavailable';
     } else if (users[0].username === username) {
-      error.message = 'Sorry, that username is unavailable';
+      message = 'Sorry, that username is unavailable';
     } else {
-      error.message = 'Sorry, that email is unavailable';
+      message = 'Sorry, that email is unavailable';
     }
-    return error;
+    return message;
   }
   return undefined;
 };
