@@ -12,6 +12,7 @@ const notFound = (req, res, next) => {
 const errorHandler = (error, req, res, next) => {
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   const err = { error: { error, message: error.message } };
+  console.log(err)
   res.status(statusCode).json(err);
 };
 
@@ -19,11 +20,12 @@ const errorHandler = (error, req, res, next) => {
 // Middleware to handle authChecking
 const auth = async (req, res, next) => {
   // Store the Tokens
-  console.log('auth');
+  console.log(req.headers);
   const accessToken = req.headers['access-token'] && req.headers['access-token'].split(' ')[1];
   // If either are null not logged in
   jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
     if (error) {
+      console.log('here')
       res.status(401);
       return next(new Error('Not logged In'));
     }

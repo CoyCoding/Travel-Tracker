@@ -46,7 +46,15 @@ router.post('/login', async (req, res, next) => {
       const accessToken = generateAccessToken({ username: user.username, id: user.user_id });
       res.set('access-token', `bearer ${accessToken}`);
       // find logged in user data
-      const userData = await User.findOne({ username: user.username });
+      const userData = await User.findOne({ username: user.username })
+        .populate({
+          path: 'following',
+          populate: {
+            path: 'locations',
+            model: 'Location',
+          },
+        }).populate('locations');
+        console.log(userData)
       // return that users data
       return res.json(userData);
     }
