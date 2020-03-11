@@ -19,6 +19,14 @@ router.get('/', auth, async (req, res) => {
   res.json(user);
 });
 
+// Get - locations for selected users
+router.get('/user', auth, async (req, res) => {
+  const { userId } = req.body;
+  // Get logged in user Info
+  const user = await User.findOne({ _id: userId }).populate('locations');
+  res.json(user);
+});
+
 // POST - Add location to posting user
 router.post('/', auth, async (req, res, next) => {
   const userId = req.body.user_id;
