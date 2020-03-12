@@ -6,7 +6,10 @@ const generateAccessToken = (user) => jwt.sign(user, process.env.ACCESS_TOKEN_SE
 // Needs username
 const generateRefreshToken = (user) => jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '5d' });
 
+
 const checkForExistingUsers = (users, username, email) => {
+
+// Returns an error based on what is returned from database or undefined for no error
   if (users.length) {
     let message;
     if (users.length === 2) {
