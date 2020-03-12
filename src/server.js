@@ -13,7 +13,7 @@ const corsConfig = require('./config/cors');
 const middlewares = require('./middlewares/middlewares');
 
 // Create database and connect
-const database = new Database();
+const database = new Database(process.env.DATABASE_URL);
 database.connect();
 
 // Create basic server

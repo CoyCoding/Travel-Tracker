@@ -9,14 +9,14 @@ router.post('/add', auth, async (req, res, next) => {
   const userId = req.body.user_id;
   try {
     // Check that user to Follow exists
-    const userToFollow = await User.findOne({ _id: userToFollowId });
+    const userToFollow = await User.findOne({ _id: userToFollowId }).populate('locations');
     if (!userToFollow) { throw new Error('This user doesn\'t exist'); }
     // Find currently logged on user and update following list
     User.findByIdAndUpdate(userId, { $addToSet: { following: userToFollow } }, returnCopy)
       .then((user) => {
         // Find followed user and add new follower
         User.findByIdAndUpdate(userToFollowId, { $addToSet: { followers: user } })
-          .then(() => res.json(user))
+          .then(() => res.json(userToFollow))
           .catch((err) => next(err));
       }).catch((err) => next(err));
   } catch (e) {

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 class db {
-  constructor() {
-    this.databaseURL = process.env.DATABASE_URL;
+  constructor(database) {
+    this.databaseURL = database;
     this.mongoose = mongoose;
   }
 
