@@ -58,7 +58,6 @@ router.post('/login', async (req, res, next) => {
           },
         }).populate('locations');
         console.log(userData)
-
       // return that users data
       return res.json(userData);
     }

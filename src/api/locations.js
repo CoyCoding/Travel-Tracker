@@ -5,6 +5,20 @@ const User = require('../database/models/User');
 const { push, returnCopy } = require('./utils/mongooseModifiers');
 const { auth } = require('../middlewares/middlewares');
 
+
+// Get - locations for selected users
+router.post('/user', auth, async (req, res, next) => {
+  const { username } = req.body;
+  console.log(username, 'username /user');
+  // Get logged in user Info
+  const user = await User.findOne({ username }).populate('locations');
+  if (user) {
+    return res.json(user);
+  }
+  return next(new Error('No User By that name'));
+});
+
+
 // GET - All locations
 router.get('/', auth, async (req, res) => {
   const userId = req.body.user_id;
@@ -16,14 +30,6 @@ router.get('/', auth, async (req, res) => {
       model: 'Location',
     },
   }).populate('locations');
-  res.json(user);
-});
-
-// Get - locations for selected users
-router.get('/user', auth, async (req, res) => {
-  const { userId } = req.body;
-  // Get logged in user Info
-  const user = await User.findOne({ _id: userId }).populate('locations');
   res.json(user);
 });
 
